@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forecastappfeature
+  namespace: forecastappfeature
+  labels:
+    backstage.io/kubernetes-id: forecastappfeature
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: forecastappfeature
+  template:
+    metadata:
+      labels:
+        app: forecastappfeature
+        backstage.io/kubernetes-id: forecastappfeature
+    spec:
+      containers:
+        - name: forecastappfeature
+          image: forecastapp:degradation
+          imagePullPolicy: Never
+          ports:
+            - name: http
+              containerPort: 8080
