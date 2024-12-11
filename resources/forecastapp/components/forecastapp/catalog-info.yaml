@@ -1,0 +1,30 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    backstage.io/kubernetes-id: forecastapp
+    dynatrace.com/guardian-tags: 'service=forecastapp'
+  name: release
+  description: forecastapp
+  dynatrace:
+    queries:
+      - id: Logs
+        description: Fetch Logs
+        query: >
+          fetch logs, from: -24h
+                | filter matchesValue(k8s.deployment.name, "forecastapp-*")
+                | sort timestamp desc
+                | fieldsAdd content=if(isNull(content), "N/A", else: content)
+                | fieldsAdd loglevel=if(isNull(loglevel), "N/A", else: loglevel)
+                | fieldsAdd source=if(isNull(log.source), "N/A", else: log.source)
+                | fieldsAdd host=if(isNull(host.name), "N/A", else: host.name)
+                | fieldsAdd environment = "<environmentName>"
+                | fieldsKeep timestamp, source, content, loglevel, host, environment
+  links:
+    - url: http://localhost:8888
+      title: launch app
+      icon: dashboard
+spec:
+  lifecycle: production
+  owner: guests
+  type: service
