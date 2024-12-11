@@ -1,2 +1,2 @@
 # dynatrace-backstage-breakout
-Getting started with the Dynatrace backstage plugin and how we use the plugin to enhance the developer experience by having a one-stop shop for seeing their applications and services and proactively gathering performance information such as error logs and quality gate validations.
+Get started with the Dynatrace Backstage plugin to enhance the developer experience. See how we used it as a one-stop-shop for developers to see their applications and services and proactively gather performance information, such as error logs and quality gate validations.
