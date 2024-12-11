@@ -1,0 +1,99 @@
+metadata:
+  version: "1"
+  dependencies:
+    apps:
+      - id: dynatrace.email
+        version: ^1.0.3
+      - id: dynatrace.site.reliability.guardian
+        version: ^1.15.0
+  inputs:
+    - type: connection
+      schema: app:dynatrace.site.reliability.guardian:guardians
+      targets:
+        - tasks.forecastapp.objectId
+        - tasks.forecastappfeature.objectId
+workflow:
+  title: City Validation
+  tasks:
+    forecastapp:
+      name: forecastapp
+      description: Automation action to start a Site Reliability Guardian validation
+      action: dynatrace.site.reliability.guardian:validate-guardian-action
+      input:
+        objectId: ""
+        executionId: "{{ execution().id }}"
+        expressionTo: ""
+        expressionFrom: ""
+        timeframeSelector:
+          to: now
+          from: now-30m
+        timeframeInputType: timeframeSelector
+      position:
+        x: 0
+        y: 1
+      predecessors: []
+    send_email_1:
+      name: send_email_1
+      description: Send email
+      action: dynatrace.email:send-email
+      input:
+        cc: []
+        to:
+          - <emailAddress>
+        bcc: []
+        taskId: "{{ task().id }}"
+        content: Degredation detected in querying city API!
+        subject: City degredation - forecastapp
+        executionId: "{{ execution().id }}"
+        environmentUrl: https://<environmentName>.apps.dynatrace.com
+      position:
+        x: 0
+        y: 2
+      predecessors:
+        - forecastapp
+      conditions:
+        states:
+          forecastapp: OK
+        custom: '{{ result("forecastapp")["validation_status"] == "fail" }}'
+    send_email_2:
+      name: send_email_2
+      description: Send email
+      action: dynatrace.email:send-email
+      input:
+        cc: []
+        to:
+          - <emailAddress>
+        bcc: []
+        taskId: "{{ task().id }}"
+        content: Degredation detected in querying city API!
+        subject: City degredation - forecastappfeature
+        executionId: "{{ execution().id }}"
+        environmentUrl: https://<environmentName>.apps.dynatrace.com
+      position:
+        x: -1
+        y: 2
+      predecessors:
+        - forecastappfeature
+      conditions:
+        states:
+          forecastappfeature: OK
+        custom: '{{ result("forecastappfeature")["validation_status"] == "fail" }}'
+    forecastappfeature:
+      name: forecastappfeature
+      description: Automation action to start a Site Reliability Guardian validation
+      action: dynatrace.site.reliability.guardian:validate-guardian-action
+      input:
+        objectId: ""
+        executionId: "{{ execution().id }}"
+        timeframeSelector:
+          to: now
+          from: now-30m
+        timeframeInputType: timeframeSelector
+      position:
+        x: -1
+        y: 1
+      predecessors: []
+  description: ""
+  trigger: {}
+  schemaVersion: 3
+  type: STANDARD
