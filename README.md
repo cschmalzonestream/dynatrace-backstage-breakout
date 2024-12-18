@@ -60,12 +60,12 @@ This part will be up to you depending on if you are looking to showcase your com
 
 I followed [this](https://medium.com/@kmignaz/create-your-forecast-application-with-net-core-and-dockerize-it-945329e0fa83) guide to create the Forecast application and containerize it.
 
-I then made an additional container where I added the following sleep method on line 17 of ‎`Repositories/ForecastRepository.cs` to have an example of a developer introducing a degradation of service.
+I then made an additional container with a tag of `degradation` where I added the following sleep method on line 17 of `Repositories/ForecastRepository.cs` to have an example of a developer introducing a degradation of service.
 ```csharp
 System.Threading.Thread.Sleep(5000);
 ```
 
-If you choose to use this app, I have provided some manifests in the resources folder [here]() to deploy it to your cluster. If not, before moving on, you will want to make 2 containerized apps of your choice with 1 performing slower than the other and deploy both of those applications to your cluster.
+If you chose to use this app, I have provided some manifests in the resources folder [here](./resources/forecastapp) to deploy both versions to your cluster. If not, before moving on, you will want to make 2 containerized apps of your choice with 1 performing slower than the other and deploy both of those applications to your cluster.
 
 Verify you can access both versions of your application on the cluster
 
