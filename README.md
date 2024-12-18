@@ -41,7 +41,7 @@ Note: If you're running Backstage with Node 20 or later, you'll need to pass the
 #### Containerize your application
 We are one step closer to seeing Backstage run on your cluster! Head over to this [link](https://backstage.io/docs/deployment/docker/) to learn how to build a Backstage app into a deployable Docker image (Host Build).
 
-Note: I had to change the “ENV NODE_ENV=production” to “ENV NODE_ENV development” to run locally and kept it this way running on K3s for testing purposes. 
+Note: I had to change the `ENV NODE_ENV=production` to `ENV NODE_ENV development` to run locally and kept it this way running on K3s for testing purposes. 
 I would also swap the `CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.production.yaml"]` line in the Dockerfile with `CMD ["node", "packages/backend", "--config", "app-config.yaml"]` when packaging and running the container locally so it wouldn’t try and use the PostgreSQL instance as its database.
 
 You  may choose to run the container locally to test that it’s in a good state before deploying or move forward to running it directly on the cluster.
