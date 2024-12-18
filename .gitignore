@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/VSWorkspaceState.json
+/.vs/slnx.sqlite
+/.vs/dynatrace-backstage-breakout/v17/DocumentLayout.json
+/.vs/dynatrace-backstage-breakout/v17/.wsuo
+/.vs/dynatrace-backstage-breakout/FileContentIndex
+/.vs/dynatrace-backstage-breakout/FileContentIndex/52847cf8-ac9a-4490-afef-03ea11fcdad3.vsidx
+/.vs
