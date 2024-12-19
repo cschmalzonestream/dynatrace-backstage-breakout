@@ -67,6 +67,28 @@ System.Threading.Thread.Sleep(5000);
 
 If you chose to use this app, I have provided some manifests in the resources folder [here](./resources/forecastapp) to deploy both versions to your cluster. If not, before moving on, you will want to make 2 containerized apps of your choice with 1 performing slower than the other and deploy both of those applications to your cluster.
 
+Note: You will want to add the following to your deployment manifests so they can be displayed in the Kubernetes component of the Dynatrace Backstage plugin: `backstage.io/kubernetes-id: <application-name>` I named one `forecastapp` and the other `forecastappfeature`
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forecastapp
+  namespace: forecastapp
+  labels:
+    backstage.io/kubernetes-id: forecastapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: forecastapp
+  template:
+    metadata:
+      labels:
+        app: forecastapp
+        backstage.io/kubernetes-id: forecastapp
+```
+
 Verify you can access both versions of your application on the cluster
 
 ![image](https://github.com/user-attachments/assets/5cc1faef-f179-4b18-b891-d79c4ab0a20d) ![image](https://github.com/user-attachments/assets/4aaa5af1-2e4f-40be-b292-4fbe076e6f51)
