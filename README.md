@@ -12,6 +12,7 @@ Get started with the Dynatrace Backstage plugin to enhance the developer experie
 - [Choosing your application to deploy and monitor](#choosing-your-application-to-deploy-and-monitor)
 - [Install the Dynatrace Backstage plugin](#install-the-dynatrace-backstage-plugin)
 - [Create a template to deploy your application as a component in Backstage](#create-a-template-to-deploy-your-application-as-a-component-in-backstage)
+    -  [Create new software components using standard templates](#create-new-software-components-using-standard-template)
 
 ## Overview
 The usage of the Dynatrace Backstage plugin spawned from wanting to alert on performance degradation from a Site Reliability Guardian (SRG). I wanted the proof of concept (PoC) to be easy to grasp so I decided to containerize an ASP.NET Core weather application. 
@@ -101,6 +102,7 @@ We are now going to install the Dynatrace Backstage plugin before packaging the 
 You can find instructions on how to install the Dynatrace Backstage plugin [here](https://github.com/Dynatrace/backstage-plugin?tab=readme-ov-file#getting-started). Return to this document once you have reached the **Additional Features** section.
 
 You won't notice anything different until you complete the next step. This will unlock the following tab in the component view of your IDP.
+![image](https://github.com/user-attachments/assets/10eb52d8-1190-481a-85eb-62f130649289)
 
 ## Create a template to deploy your application as a component in Backstage
 This step will involve rebulding the container for the Backstage application. I followed [this](https://sagar-parmar.medium.com/creating-infra-using-backstage-templates-terraform-and-github-actions-15ca4a93b1a1) post to learn how to package the template and pull the component but if you are hosting your component on GitHub you will have to [configure]( https://backstage.io/docs/auth/github/provider/) the GitHub Authentication Provider to reach out to your component.
@@ -121,5 +123,29 @@ The components can be found [here](./resources/components)
 
 You will have to replace the variables with your own in these files.
 
-### Create new software components using standard templates
+### Create new software components using standard template
 
+Now that we have prepped the Backstage application, we can use it to deploy our components!
+
+First, navigate to **Create...** in the navigation pane of the IDP and select **CHOOSE** on the **forecastapp** template.
+![image](https://github.com/user-attachments/assets/842d95b8-851b-4558-ad90-051427bd94b7)
+
+Next, let's deploy the main branch first. Input **release** click **NEXT**, check **main**, click **REVIEW** and **CREATE**
+![image](https://github.com/user-attachments/assets/e329883f-0df0-4288-b7bb-1264a6c801dd)
+![image](https://github.com/user-attachments/assets/3f2955ef-eb59-4a8e-895c-e02609b17a8e)
+![image](https://github.com/user-attachments/assets/271fe74c-5b50-41c2-b403-a86fbc150c81)
+
+Once the component is deployed, navigate to **Home** and click on your component.
+![image](https://github.com/user-attachments/assets/f273f548-4f1c-4550-8b0d-a7904616b705)
+
+Here you will see the general info of the application where you can choose to launch the existing deployed app on your cluster. This view also includes our star of the show, the Dynatrace Backstage plugin tab!
+![image](https://github.com/user-attachments/assets/ea5bc8dd-daf0-4539-9068-a3d3c57510ec)
+
+If you click the **DYNATRACE** tab you should see logs and a link to the kubernetes deployment in Dynatrace
+![image](https://github.com/user-attachments/assets/89614b0e-8035-4d07-a8b8-b9d368f5b844)
+![image](https://github.com/user-attachments/assets/746c4feb-9e7d-4362-b5bb-194dd98939c1)
+![image](https://github.com/user-attachments/assets/642d651a-07e5-4c4b-bdb8-a27451ce9ede)
+
+The one item you won't currently see any data for is the **Site Reliability Guardian**, this will require some additonal setup we will cover in the next section.
+
+Repeat the steps above to deploy the feature branch so you have 2 components entries named **release** and **feature**.
