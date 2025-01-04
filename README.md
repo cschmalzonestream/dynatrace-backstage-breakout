@@ -13,7 +13,7 @@ Get started with the Dynatrace Backstage plugin to enhance the developer experie
 - [Install the Dynatrace Backstage plugin](#install-the-dynatrace-backstage-plugin)
 - [Create a template to deploy your application as a component in Backstage](#create-a-template-to-deploy-your-application-as-a-component-in-backstage)
     -  [Create new components using a standard template](#create-new-components-using-a-standard-template)
-- [Create a Site Reliability Guardian to detect performance degradation](#create-a-site-reliability-guardian-to-dtect-performance-degradation)
+- [Create a Site Reliability Guardian to detect performance degradation](#create-a-site-reliability-guardian-to-detect-performance-degradation)
 - [Root Cause Analysis](#root-cause-analysis)
 
 ## Overview
@@ -96,7 +96,7 @@ spec:
 
 Verify you can access both versions of your application on the cluster
 
-![image](https://github.com/user-attachments/assets/5cc1faef-f179-4b18-b891-d79c4ab0a20d) ![image](https://github.com/user-attachments/assets/4aaa5af1-2e4f-40be-b292-4fbe076e6f51)
+![image](https://github.com/user-attachments/assets/30c09453-4671-4b28-8056-00420f037553) ![image](https://github.com/user-attachments/assets/92e5a3c4-fe93-4de3-b6f7-877da18b6192)
 
 ## Install the Dynatrace Backstage plugin
 We are now going to install the Dynatrace Backstage plugin before packaging the final Backstage application.
@@ -169,20 +169,31 @@ timeseries p95 = percentile(dt.service.request.response_time, 95), by:{dt.entity
 To activate the SRG validation, a workflow was used that can be called from your testing suite automation. It can be found [here](./resources/workflow), replacing the environment name and email with your own.
 This workflow will run both of these SRGs to validate the latency SLO set for the applications.
 If one of these SRGs fails, the developer will be alerted via email. They will also see if the validation passed or failed in the Dynatrace Backstage plugin.
+![image](https://github.com/user-attachments/assets/d7507f1a-9298-42ab-92e0-35c9e0a34b45)
+![image](https://github.com/user-attachments/assets/a7a62bde-a34a-40c0-b299-a68dd552c03a)
 
 You can see the visual latency below:
 
+**Main**
+
+![forecastapp](https://github.com/user-attachments/assets/38e1932f-a51c-4ff8-b14f-b9c75f32d0f8)
+
+**Feature**
+
+![forecastappfeature](https://github.com/user-attachments/assets/613064ce-4366-4264-8ec4-5f330fc22479)
 
 ## Root Cause Analysis
 Once the developer is alerted of the performance degradation, they can click on the **DYNATRACE** tab in Backstage and navigate to the workflow. You can then begin looking at the distributed traces
 that are greater than the SLO set in the SRG (5 seconds in this case) to see what is causing the latency.
+![image](https://github.com/user-attachments/assets/209c21bb-3b9e-4307-8764-5cbfd5f7b906)
 
 Once you find the piece of code causing the issue you can consult the source code to see that someone added a sleep to the API call. This is where the developer can make the necessary changes to the code to fix the issue.
+![image](https://github.com/user-attachments/assets/d0f6ab36-53ac-4cfd-b2ff-9f64ca6ba70e)
 
 ## Wrap Up
 
 This is a high-level overview of how to use the Dynatrace Backstage plugin to enhance the developer experience. I hope this guide helps you get started with your own PoC and you can see the value of having the Dynatrace Backstage plugin in your IDP.
 
-If you have any questions or need help with any of the steps, please reach out to me via email or LinkedIn.
+If you have any questions or need help with any of the steps, please reach out to me via [email](mailto:cschmalz@onestreamsoftware.com) or [LinkedIn](https://www.linkedin.com/in/chris-schmalz).
 
 I hope you enjoyed this guide and your company benefits from an IDP like mine has through faster time to market, improved collaboration across teams, increased developer productivity, and improved code quality!
