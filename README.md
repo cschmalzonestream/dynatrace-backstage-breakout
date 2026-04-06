@@ -97,7 +97,8 @@ spec:
 
 Verify you can access both versions of your application on the cluster
 
-<img width="499" height="499" alt="image" src="https://github.com/user-attachments/assets/7186d936-9fd8-4e0a-884a-e1c2e85390be" /> <img width="499" height="499" alt="image" src="https://github.com/user-attachments/assets/45bed00d-5872-4add-8ba0-5ca439a01c42" />
+<img width="499" height="499" alt="image" src="https://github.com/user-attachments/assets/7186d936-9fd8-4e0a-884a-e1c2e85390be" /> <img width="499" height="499" alt="image" src="https://github.com/user-attachments/assets/d8e546be-ba1f-4aed-b764-5fe61a7bd2d3" />
+
 
 
 ## Install the Dynatrace Backstage plugin
